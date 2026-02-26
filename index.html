@@ -1,173 +1,316 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador Inmobiliario Multiprooyecto</title>
+    <title>Cotizador Inmobiliario - Soy Nativo</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --primary: #101828;
+            /* Colores basados en Soy Nativo */
+            --primary: #1A392A;
+            /* Verde bosque oscuro */
+            --secondary: #2C5E43;
+            /* Verde medio */
+            --accent: #D4AF37;
+            /* Acento cálido dorado/arena */
+            --background: #F8F9FA;
+            /* Blanco humo */
+            --surface: #FFFFFF;
+            --text-main: #2D3748;
+            --text-muted: #718096;
+            --border: #E2E8F0;
+            --border-focus: #2C5E43;
+            --error: #E53E3E;
+            --success: #38A169;
             --btn-whatsapp: #25D366;
-            --btn-whatsapp-hover: #1ebe5d;
-            --btn-copy: #007bff;
-            --btn-copy-hover: #0056b3;
-            --bg-color: #f9fafb;
-            --card-bg: #ffffff;
-            --text-main: #344054;
-            --text-muted: #667085;
-            --border-color: #d0d5dd;
-            --error: #d92d20;
+            --btn-whatsapp-hover: #1EBE5D;
+
+            /* Tipografías */
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
         }
 
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            padding: 20px; 
-            background-color: var(--bg-color); 
-            display: flex; 
+        body {
+            font-family: var(--font-body);
+            background-color: var(--background);
+            background-image: linear-gradient(135deg, #F8F9FA 0%, #E6ECE9 100%);
+            color: var(--text-main);
+            display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            padding: 24px;
             box-sizing: border-box;
         }
 
-        .container { 
-            background: var(--card-bg); 
-            padding: 32px 24px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); 
-            max-width: 420px; 
-            width: 100%; 
+        .main-wrapper {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }
 
-        h2 { 
-            text-align: center; 
-            color: var(--primary); 
-            margin-top: 0; 
-            margin-bottom: 24px;
-            font-size: 24px;
+        .header {
+            text-align: center;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .header .logo {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .header .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(26, 57, 42, 0.2);
+        }
+
+        .header p {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .container {
+            background: var(--surface);
+            padding: 40px 32px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(26, 57, 42, 0.08), 0 4px 10px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            width: 100%;
+            box-sizing: border-box;
+            animation: fadeIn 0.5s ease;
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            margin: 0 0 24px 0;
+            font-size: 22px;
             font-weight: 600;
+            text-align: center;
         }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
-        label { 
+        label {
             display: block;
             font-size: 14px;
-            font-weight: 500; 
+            font-weight: 500;
             color: var(--text-main);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
-        select, input[type="text"] { 
-            width: 100%; 
-            padding: 10px 14px; 
-            border: 1px solid var(--border-color); 
-            border-radius: 8px; 
-            box-sizing: border-box; 
-            font-size: 16px; 
-            color: var(--primary);
-            background-color: #fff;
-            transition: border-color 0.2s, box-shadow 0.2s;
+        select,
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--text-main);
+            background-color: #fcfcfc;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+            appearance: none;
         }
 
-        select:focus, input[type="text"]:focus {
+        select {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+        }
+
+        select:focus,
+        input[type="text"]:focus {
             outline: none;
-            border-color: var(--btn-copy);
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+            border-color: var(--border-focus);
+            background-color: var(--surface);
+            box-shadow: 0 0 0 4px rgba(44, 94, 67, 0.1);
         }
 
-        button { 
-            width: 100%; 
-            padding: 12px; 
-            background-color: var(--btn-whatsapp); 
-            color: white; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 16px; 
-            font-weight: 600; 
-            cursor: pointer; 
+        button {
+            font-family: var(--font-heading);
+            width: 100%;
+            padding: 16px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
             margin-top: 8px;
-            margin-bottom: 16px; 
-            transition: background-color 0.2s, transform 0.1s; 
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(26, 57, 42, 0.15);
         }
 
         button:active {
-            transform: scale(0.98);
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(26, 57, 42, 0.15);
         }
 
-        button:hover { 
-            background-color: var(--btn-whatsapp-hover); 
+        button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(26, 57, 42, 0.2);
         }
 
-        textarea { 
-            width: 100%; 
-            height: 220px; 
-            padding: 16px; 
-            border: 1px solid var(--border-color); 
-            border-radius: 8px; 
-            resize: none; 
-            box-sizing: border-box; 
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; 
-            font-size: 14px; 
-            line-height: 1.5;
-            background-color: var(--bg-color); 
-            color: var(--primary);
-            margin-bottom: 12px;
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            resize: none;
+            box-sizing: border-box;
+            font-family: var(--font-body);
+            font-size: 14px;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
         }
 
-        .error { 
-            color: var(--error); 
-            text-align: center; 
-            margin-bottom: 16px; 
-            font-weight: 500; 
+        textarea:focus {
+            outline: none;
+            border-color: var(--border-focus);
+        }
+
+        .error {
+            color: var(--error);
+            text-align: center;
+            margin-bottom: 16px;
+            font-weight: 500;
             font-size: 14px;
             min-height: 20px;
+            animation: fadeIn 0.3s ease;
         }
 
-        .btn-copy { 
-            background-color: var(--btn-copy); 
+        .btn-copy {
+            background-color: var(--btn-whatsapp);
             margin-bottom: 0;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .btn-copy:hover { 
-            background-color: var(--btn-copy-hover); 
+        .btn-copy::before {
+            content: '';
+            display: block;
+            width: 22px;
+            height: 22px;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z'%3e%3c/path%3e%3c/svg%3e");
+        }
+
+        .btn-copy:hover {
+            background-color: var(--btn-whatsapp-hover);
+            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.3);
         }
 
         .success-state {
-            background-color: #039855 !important;
+            background-color: var(--success) !important;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #E6FFFA;
+            color: var(--secondary);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h2>Simulador Inmobiliario</h2>
-        
-        <div class="form-group">
-            <label for="proyecto">Proyecto:</label>
-            <select id="proyecto">
-                <!-- Se llenará dinámicamente con JS -->
-            </select>
+    <div class="main-wrapper">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🌿</div>
+                Soy Nativo
+            </div>
+            <p>Portal Oficial de Cotización</p>
         </div>
 
-        <div class="form-group">
-            <label for="parcela">Identificador de Parcela:</label>
-            <input type="text" id="parcela" placeholder="Ej: 11 o A2" autocomplete="off">
+        <div class="container">
+            <div style="text-align: center;"><span class="badge">Simulador Inmobiliario</span></div>
+            <h2>Ficha de Inversión</h2>
+
+            <div class="form-group">
+                <label for="proyecto">Selecciona el Proyecto</label>
+                <select id="proyecto">
+                    <!-- Se llenará dinámicamente con JS -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="parcela">Identificador de la Parcela</label>
+                <input type="text" id="parcela" placeholder="Ej: 11 o A2" autocomplete="off">
+            </div>
+
+            <button onclick="generarSimulacion()">Generar Cotización</button>
+            <div id="error-msg" class="error"></div>
+
+            <textarea id="resultado" readonly
+                placeholder="Aquí aparecerá el detalle formal de la parcela para compartir con el cliente por WhatsApp..."></textarea>
+            <button id="btn-copy" class="btn-copy" onclick="copiarTexto()">Compartir por WhatsApp</button>
         </div>
-        
-        <button onclick="generarSimulacion()">Generar Simulación</button>
-        <div id="error-msg" class="error"></div>
-        
-        <textarea id="resultado" readonly placeholder="Aquí aparecerá la simulación con el formato exacto para WhatsApp..."></textarea>
-        <button id="btn-copy" class="btn-copy" onclick="copiarTexto()">Copiar para WhatsApp</button>
     </div>
 
     <script>
         // Motor de Base de Datos - Carga Eficiente de Lotes
         const db = {};
-        
+
         const addP = (proj, m2, precio, pie, cuotas, ids) => {
             if (!db[proj]) db[proj] = {};
             ids.split(',').forEach(id => {
@@ -176,24 +319,24 @@
         };
 
         // --- 1. ESTANCIA VICTORIA (Solo pie $19.990.000) ---
-        addP("Estancia Victoria", "5.200", "41.900.000", "19.990.000", {"24": "1.151.855", "36": "852.705", "48": "707.058"}, "A2, A4, A5, A6, A7");
-        addP("Estancia Victoria", "5.200", "39.900.000", "19.990.000", {"24": "1.046.711", "36": "774.868", "48": "642.516"}, "A3");
-        addP("Estancia Victoria", "5.000", "43.900.000", "19.990.000", {"24": "1.256.999", "36": "930.542", "48": "771.600"}, "A8, A9, A10");
-        addP("Estancia Victoria", "5.100", "40.900.000", "19.990.000", {"24": "1.099.283", "36": "813.786", "48": "674.787"}, "A11");
-        addP("Estancia Victoria", "5.100", "42.900.000", "19.990.000", {"24": "1.204.427", "36": "891.623", "48": "739.329"}, "A12");
-        addP("Estancia Victoria", "5.100", "39.900.000", "19.990.000", {"24": "1.046.711", "36": "774.868", "48": "642.516"}, "A13");
-        addP("Estancia Victoria", "5.000", "38.900.000", "19.990.000", {"24": "994.139", "36": "735.949", "48": "610.245"}, "A14, A15");
-        addP("Estancia Victoria", "5.000", "37.900.000", "19.990.000", {"24": "941.566", "36": "697.031", "48": "577.974"}, "A16, A18, A22");
-        addP("Estancia Victoria", "5.600", "37.900.000", "19.990.000", {"24": "941.566", "36": "697.031", "48": "577.974"}, "A23");
-        addP("Estancia Victoria", "5.900", "37.900.000", "19.990.000", {"24": "941.566", "36": "697.031", "48": "577.974"}, "A25");
-        addP("Estancia Victoria", "5.000", "35.900.000", "19.990.000", {"24": "836.422", "36": "619.194", "48": "513.432"}, "A17");
-        addP("Estancia Victoria", "5.100", "36.900.000", "19.990.000", {"24": "888.994", "36": "658.112", "48": "545.703"}, "A19, A20");
-        addP("Estancia Victoria", "5.100", "33.900.000", "19.990.000", {"24": "731.278", "36": "541.356", "48": "448.890"}, "A21, A27, A28");
-        addP("Estancia Victoria", "5.200", "33.900.000", "19.990.000", {"24": "731.278", "36": "541.356", "48": "448.890"}, "A26");
-        addP("Estancia Victoria", "5.900", "39.900.000", "19.990.000", {"24": "1.046.711", "36": "774.868", "48": "642.516"}, "A24");
+        addP("Estancia Victoria", "5.200", "41.900.000", "19.990.000", { "24": "1.151.855", "36": "852.705", "48": "707.058" }, "A2, A4, A5, A6, A7");
+        addP("Estancia Victoria", "5.200", "39.900.000", "19.990.000", { "24": "1.046.711", "36": "774.868", "48": "642.516" }, "A3");
+        addP("Estancia Victoria", "5.000", "43.900.000", "19.990.000", { "24": "1.256.999", "36": "930.542", "48": "771.600" }, "A8, A9, A10");
+        addP("Estancia Victoria", "5.100", "40.900.000", "19.990.000", { "24": "1.099.283", "36": "813.786", "48": "674.787" }, "A11");
+        addP("Estancia Victoria", "5.100", "42.900.000", "19.990.000", { "24": "1.204.427", "36": "891.623", "48": "739.329" }, "A12");
+        addP("Estancia Victoria", "5.100", "39.900.000", "19.990.000", { "24": "1.046.711", "36": "774.868", "48": "642.516" }, "A13");
+        addP("Estancia Victoria", "5.000", "38.900.000", "19.990.000", { "24": "994.139", "36": "735.949", "48": "610.245" }, "A14, A15");
+        addP("Estancia Victoria", "5.000", "37.900.000", "19.990.000", { "24": "941.566", "36": "697.031", "48": "577.974" }, "A16, A18, A22");
+        addP("Estancia Victoria", "5.600", "37.900.000", "19.990.000", { "24": "941.566", "36": "697.031", "48": "577.974" }, "A23");
+        addP("Estancia Victoria", "5.900", "37.900.000", "19.990.000", { "24": "941.566", "36": "697.031", "48": "577.974" }, "A25");
+        addP("Estancia Victoria", "5.000", "35.900.000", "19.990.000", { "24": "836.422", "36": "619.194", "48": "513.432" }, "A17");
+        addP("Estancia Victoria", "5.100", "36.900.000", "19.990.000", { "24": "888.994", "36": "658.112", "48": "545.703" }, "A19, A20");
+        addP("Estancia Victoria", "5.100", "33.900.000", "19.990.000", { "24": "731.278", "36": "541.356", "48": "448.890" }, "A21, A27, A28");
+        addP("Estancia Victoria", "5.200", "33.900.000", "19.990.000", { "24": "731.278", "36": "541.356", "48": "448.890" }, "A26");
+        addP("Estancia Victoria", "5.900", "39.900.000", "19.990.000", { "24": "1.046.711", "36": "774.868", "48": "642.516" }, "A24");
 
         // --- 2. EL DORADO ---
-        const cuotasDorado1 = {"24": "1.577.163", "36": "1.167.555", "48": "968.131"};
+        const cuotasDorado1 = { "24": "1.577.163", "36": "1.167.555", "48": "968.131" };
         addP("El Dorado", "15.004", "49.990.000", "19.990.000", cuotasDorado1, "11, 12");
         addP("El Dorado", "15.007", "49.990.000", "19.990.000", cuotasDorado1, "15");
         addP("El Dorado", "15.053", "49.990.000", "19.990.000", cuotasDorado1, "16");
@@ -202,7 +345,7 @@
         addP("El Dorado", "15.781", "49.990.000", "19.990.000", cuotasDorado1, "33");
         addP("El Dorado", "15.310", "49.990.000", "19.990.000", cuotasDorado1, "63");
         addP("El Dorado", "15.033", "49.990.000", "19.990.000", cuotasDorado1, "66");
-        const cuotasDorado2 = {"24": "1.314.303", "36": "972.963", "48": "806.776"};
+        const cuotasDorado2 = { "24": "1.314.303", "36": "972.963", "48": "806.776" };
         addP("El Dorado", "16.293", "44.990.000", "19.990.000", cuotasDorado2, "27");
         addP("El Dorado", "15.854", "44.990.000", "19.990.000", cuotasDorado2, "29");
         addP("El Dorado", "17.416", "44.990.000", "19.990.000", cuotasDorado2, "50");
@@ -210,7 +353,7 @@
         addP("El Dorado", "15.988", "44.990.000", "19.990.000", cuotasDorado2, "57");
         addP("El Dorado", "15.643", "44.990.000", "19.990.000", cuotasDorado2, "60");
         addP("El Dorado", "16.226", "44.990.000", "19.990.000", cuotasDorado2, "61");
-        const cuotasDorado3 = {"24": "1.209.158", "36": "895.126", "48": "742.234"};
+        const cuotasDorado3 = { "24": "1.209.158", "36": "895.126", "48": "742.234" };
         addP("El Dorado", "15.012", "42.990.000", "19.990.000", cuotasDorado3, "28");
         addP("El Dorado", "15.173", "42.990.000", "19.990.000", cuotasDorado3, "35, 51");
         addP("El Dorado", "15.305", "42.990.000", "19.990.000", cuotasDorado3, "38");
@@ -222,9 +365,9 @@
         addP("El Dorado", "16.246", "42.990.000", "19.990.000", cuotasDorado3, "48");
         addP("El Dorado", "15.333", "42.990.000", "19.990.000", cuotasDorado3, "49");
         addP("El Dorado", "15.300", "42.990.000", "19.990.000", cuotasDorado3, "72");
-        addP("El Dorado", "30.751", "54.990.000", "19.990.000", {"24": "1.840.024", "36": "1.362.148", "48": "1.129.486"}, "30");
-        addP("El Dorado", "34.325", "55.990.000", "19.990.000", {"24": "1.892.596", "36": "1.401.066", "48": "1.161.757"}, "34");
-        const cuotasDorado4 = {"24": "1.366.875", "36": "1.011.881", "48": "839.047"};
+        addP("El Dorado", "30.751", "54.990.000", "19.990.000", { "24": "1.840.024", "36": "1.362.148", "48": "1.129.486" }, "30");
+        addP("El Dorado", "34.325", "55.990.000", "19.990.000", { "24": "1.892.596", "36": "1.401.066", "48": "1.161.757" }, "34");
+        const cuotasDorado4 = { "24": "1.366.875", "36": "1.011.881", "48": "839.047" };
         addP("El Dorado", "15.960", "45.990.000", "19.990.000", cuotasDorado4, "31");
         addP("El Dorado", "19.077", "45.990.000", "19.990.000", cuotasDorado4, "46");
         addP("El Dorado", "19.009", "45.990.000", "19.990.000", cuotasDorado4, "47");
@@ -233,7 +376,7 @@
         addP("El Dorado", "15.079", "45.990.000", "19.990.000", cuotasDorado4, "62");
         addP("El Dorado", "15.291", "45.990.000", "19.990.000", cuotasDorado4, "67");
         addP("El Dorado", "15.009", "45.990.000", "19.990.000", cuotasDorado4, "71");
-        const cuotasDorado5 = {"24": "1.261.731", "36": "934.044", "48": "774.505"};
+        const cuotasDorado5 = { "24": "1.261.731", "36": "934.044", "48": "774.505" };
         addP("El Dorado", "17.099", "43.990.000", "19.990.000", cuotasDorado5, "36");
         addP("El Dorado", "15.423", "43.990.000", "19.990.000", cuotasDorado5, "37");
         addP("El Dorado", "16.917", "43.990.000", "19.990.000", cuotasDorado5, "44");
@@ -242,140 +385,140 @@
         addP("El Dorado", "15.099", "43.990.000", "19.990.000", cuotasDorado5, "59");
 
         // --- 3. HACIENDAS DE LARQUI ---
-        const cuotasLarqui1 = {"12": "1.914.498", "24": "1.081.530", "36": "810.080", "48": "678.855"};
+        const cuotasLarqui1 = { "12": "1.914.498", "24": "1.081.530", "36": "810.080", "48": "678.855" };
         addP("Haciendas de Larqui", "5.100", "24.990.000", "4.990.000", cuotasLarqui1, "1, 2, 3");
-        addP("Haciendas de Larqui", "5.100", "17.990.000", "4.990.000", {"12": "1.244.424", "24": "702.995", "36": "526.552", "48": "441.256"}, "4, 16");
-        const cuotasLarqui2 = {"12": "1.340.148", "24": "757.071", "36": "567.056", "48": "475.198"};
+        addP("Haciendas de Larqui", "5.100", "17.990.000", "4.990.000", { "12": "1.244.424", "24": "702.995", "36": "526.552", "48": "441.256" }, "4, 16");
+        const cuotasLarqui2 = { "12": "1.340.148", "24": "757.071", "36": "567.056", "48": "475.198" };
         addP("Haciendas de Larqui", "5.100", "18.990.000", "4.990.000", cuotasLarqui2, "5, 11, 12, 13, 14, 15, 20");
-        const cuotasLarqui3 = {"12": "1.531.598", "24": "865.224", "36": "648.064", "48": "543.084"};
+        const cuotasLarqui3 = { "12": "1.531.598", "24": "865.224", "36": "648.064", "48": "543.084" };
         addP("Haciendas de Larqui", "5.100", "20.990.000", "4.990.000", cuotasLarqui3, "6, 7, 8, 9, 10");
-        addP("Haciendas de Larqui", "5.100", "19.990.000", "4.990.000", {"12": "1.435.873", "24": "811.148", "36": "607.560", "48": "509.141"}, "17");
-        addP("Haciendas de Larqui", "5.400", "21.990.000", "4.990.000", {"12": "1.627.323", "24": "919.301", "36": "688.568", "48": "577.027"}, "18, 19");
-        addP("Haciendas de Larqui", "9.700", "29.990.000", "4.990.000", {"12": "2.393.122", "24": "1.351.913", "36": "1.012.600", "48": "848.568"}, "21");
+        addP("Haciendas de Larqui", "5.100", "19.990.000", "4.990.000", { "12": "1.435.873", "24": "811.148", "36": "607.560", "48": "509.141" }, "17");
+        addP("Haciendas de Larqui", "5.400", "21.990.000", "4.990.000", { "12": "1.627.323", "24": "919.301", "36": "688.568", "48": "577.027" }, "18, 19");
+        addP("Haciendas de Larqui", "9.700", "29.990.000", "4.990.000", { "12": "2.393.122", "24": "1.351.913", "36": "1.012.600", "48": "848.568" }, "21");
 
         // --- 4. AIRES DE ALERCE ---
-        addP("Aires de Alerce", "5.000", "9.990.000", "0", {"12": "950.461", "24": "534.184", "36": "398.258", "48": "332.355", "60": "294.392"}, "38, 43, 44, 47, 51");
+        addP("Aires de Alerce", "5.000", "9.990.000", "0", { "12": "950.461", "24": "534.184", "36": "398.258", "48": "332.355", "60": "294.392" }, "38, 43, 44, 47, 51");
 
         // --- 5. ALTOS DE NAHUELCURA ---
-        const cuotasAltos1 = {"12": "1.666.667", "24": "1.031.253", "36": "757.203", "48": "623.193", "60": "545.125"};
+        const cuotasAltos1 = { "12": "1.666.667", "24": "1.031.253", "36": "757.203", "48": "623.193", "60": "545.125" };
         addP("Altos de Nahuelcura", "5.100", "24.990.000", "4.990.000", cuotasAltos1, "1");
         addP("Altos de Nahuelcura", "5.000", "24.990.000", "4.990.000", cuotasAltos1, "5, 6, 24, 28, 30, 32");
         addP("Altos de Nahuelcura", "6.800", "24.990.000", "4.990.000", cuotasAltos1, "15");
-        addP("Altos de Nahuelcura", "5.100", "25.990.000", "4.990.000", {"12": "1.750.000", "24": "1.082.816", "36": "795.063", "48": "654.353", "60": "572.382"}, "2");
-        const cuotasAltos2 = {"12": "1.500.000", "24": "928.128", "36": "681.483", "48": "560.874", "60": "490.613"};
+        addP("Altos de Nahuelcura", "5.100", "25.990.000", "4.990.000", { "12": "1.750.000", "24": "1.082.816", "36": "795.063", "48": "654.353", "60": "572.382" }, "2");
+        const cuotasAltos2 = { "12": "1.500.000", "24": "928.128", "36": "681.483", "48": "560.874", "60": "490.613" };
         addP("Altos de Nahuelcura", "5.000", "22.990.000", "4.990.000", cuotasAltos2, "3, 4, 8, 9, 13, 22");
-        const cuotasAltos3 = {"12": "1.416.667", "24": "876.565", "36": "643.623", "48": "529.714", "60": "463.356"};
+        const cuotasAltos3 = { "12": "1.416.667", "24": "876.565", "36": "643.623", "48": "529.714", "60": "463.356" };
         addP("Altos de Nahuelcura", "5.000", "21.990.000", "4.990.000", cuotasAltos3, "7, 10, 11");
-        const cuotasAltos4 = {"12": "1.250.000", "24": "773.440", "36": "567.902", "48": "467.395", "60": "408.844"};
+        const cuotasAltos4 = { "12": "1.250.000", "24": "773.440", "36": "567.902", "48": "467.395", "60": "408.844" };
         addP("Altos de Nahuelcura", "5.100", "19.990.000", "4.990.000", cuotasAltos4, "12, 17, 18, 21");
         addP("Altos de Nahuelcura", "5.000", "19.990.000", "4.990.000", cuotasAltos4, "16, 20");
         addP("Altos de Nahuelcura", "6.400", "19.990.000", "4.990.000", cuotasAltos4, "19");
-        addP("Altos de Nahuelcura", "5.000", "20.990.000", "4.990.000", {"12": "1.333.333", "24": "825.002", "36": "605.763", "48": "498.554", "60": "436.100"}, "14");
-        const cuotasAltos5 = {"12": "1.583.333", "24": "979.690", "36": "719.343", "48": "592.033", "60": "517.869"};
+        addP("Altos de Nahuelcura", "5.000", "20.990.000", "4.990.000", { "12": "1.333.333", "24": "825.002", "36": "605.763", "48": "498.554", "60": "436.100" }, "14");
+        const cuotasAltos5 = { "12": "1.583.333", "24": "979.690", "36": "719.343", "48": "592.033", "60": "517.869" };
         addP("Altos de Nahuelcura", "5.000", "23.990.000", "4.990.000", cuotasAltos5, "23, 29");
 
         // --- 6. FLOR DEL ITATA ---
-        addP("Flor del Itata", "5.000", "24.990.000", "9.990.000", {"12": "1.435.873", "24": "811.148", "36": "607.560", "48": "509.141"}, "67");
+        addP("Flor del Itata", "5.000", "24.990.000", "9.990.000", { "12": "1.435.873", "24": "811.148", "36": "607.560", "48": "509.141" }, "67");
 
         // --- 7. VALLE SAN ANDRÉS ---
-        const cuotasVSA1 = {"12": "1.508.312", "24": "841.154", "36": "622.696", "48": "516.336", "60": "454.732"};
+        const cuotasVSA1 = { "12": "1.508.312", "24": "841.154", "36": "622.696", "48": "516.336", "60": "454.732" };
         addP("Valle San Andrés", "5.300", "25.990.000", "9.990.000", cuotasVSA1, "1");
         addP("Valle San Andrés", "5.000", "25.990.000", "9.990.000", cuotasVSA1, "3, 10, 12, 25, 26, 29, 37");
-        const cuotasVSA2 = {"12": "1.914.498", "24": "1.081.530", "36": "810.080", "48": "678.855", "60": "603.555"};
+        const cuotasVSA2 = { "12": "1.914.498", "24": "1.081.530", "36": "810.080", "48": "678.855", "60": "603.555" };
         addP("Valle San Andrés", "5.000", "29.990.000", "9.990.000", cuotasVSA2, "2, 11, 21, 27, 35, 38");
         addP("Valle San Andrés", "5.500", "29.990.000", "9.990.000", cuotasVSA2, "19");
-        const cuotasVSA3 = {"12": "1.602.581", "24": "893.726", "36": "661.615", "48": "548.607", "60": "483.153"};
+        const cuotasVSA3 = { "12": "1.602.581", "24": "893.726", "36": "661.615", "48": "548.607", "60": "483.153" };
         addP("Valle San Andrés", "5.000", "26.990.000", "9.990.000", cuotasVSA3, "4, 5, 23");
-        const cuotasVSA4 = {"12": "4.020.445", "24": "2.271.214", "36": "1.701.168", "48": "1.425.595", "60": "1.267.465"};
+        const cuotasVSA4 = { "12": "4.020.445", "24": "2.271.214", "36": "1.701.168", "48": "1.425.595", "60": "1.267.465" };
         addP("Valle San Andrés", "6.000", "51.990.000", "9.990.000", cuotasVSA4, "6, 7, 13, 14, 15, 16, 17");
         addP("Valle San Andrés", "5.000", "51.990.000", "9.990.000", cuotasVSA4, "18");
-        const cuotasVSA5 = {"12": "1.225.503", "24": "683.437", "36": "505.941", "48": "419.523", "60": "369.470"};
+        const cuotasVSA5 = { "12": "1.225.503", "24": "683.437", "36": "505.941", "48": "419.523", "60": "369.470" };
         addP("Valle San Andrés", "5.000", "22.990.000", "9.990.000", cuotasVSA5, "8, 32");
-        const cuotasVSA6 = {"12": "1.818.773", "24": "1.027.454", "36": "769.576", "48": "644.912", "60": "573.377"};
+        const cuotasVSA6 = { "12": "1.818.773", "24": "1.027.454", "36": "769.576", "48": "644.912", "60": "573.377" };
         addP("Valle San Andrés", "5.000", "28.990.000", "9.990.000", cuotasVSA6, "9, 22");
         addP("Valle San Andrés", "5.300", "28.990.000", "9.990.000", cuotasVSA6, "20");
-        addP("Valle San Andrés", "6.900", "35.990.000", "9.990.000", {"12": "2.451.006", "24": "1.366.875", "36": "1.011.881", "48": "839.047", "60": "738.940"}, "24");
-        const cuotasVSA7 = {"12": "1.435.873", "24": "811.148", "36": "607.560", "48": "509.141", "60": "452.666"};
+        addP("Valle San Andrés", "6.900", "35.990.000", "9.990.000", { "12": "2.451.006", "24": "1.366.875", "36": "1.011.881", "48": "839.047", "60": "738.940" }, "24");
+        const cuotasVSA7 = { "12": "1.435.873", "24": "811.148", "36": "607.560", "48": "509.141", "60": "452.666" };
         addP("Valle San Andrés", "5.000", "24.990.000", "9.990.000", cuotasVSA7, "28, 36");
-        const cuotasVSA8 = {"12": "1.319.773", "24": "736.009", "36": "544.859", "48": "451.794", "60": "397.891"};
+        const cuotasVSA8 = { "12": "1.319.773", "24": "736.009", "36": "544.859", "48": "451.794", "60": "397.891" };
         addP("Valle San Andrés", "5.000", "23.990.000", "9.990.000", cuotasVSA8, "30, 31, 34");
-        addP("Valle San Andrés", "5.000", "21.990.000", "9.990.000", {"12": "1.131.234", "24": "630.865", "36": "467.022", "48": "387.252", "60": "341.049"}, "33");
-        addP("Valle San Andrés", "5.000", "27.990.000", "9.990.000", {"12": "1.696.850", "24": "946.298", "36": "700.533", "48": "580.878", "60": "511.574"}, "39");
-        addP("Valle San Andrés", "7.000", "37.990.000", "9.990.000", {"12": "2.680.297", "24": "1.514.143", "36": "1.134.112", "48": "950.397", "60": "844.976"}, "40");
+        addP("Valle San Andrés", "5.000", "21.990.000", "9.990.000", { "12": "1.131.234", "24": "630.865", "36": "467.022", "48": "387.252", "60": "341.049" }, "33");
+        addP("Valle San Andrés", "5.000", "27.990.000", "9.990.000", { "12": "1.696.850", "24": "946.298", "36": "700.533", "48": "580.878", "60": "511.574" }, "39");
+        addP("Valle San Andrés", "7.000", "37.990.000", "9.990.000", { "12": "2.680.297", "24": "1.514.143", "36": "1.134.112", "48": "950.397", "60": "844.976" }, "40");
 
         // --- 8. VERDE PRADERA - 1° ETAPA ---
-        const cuotasVP1A = {"12": "1.018.211", "24": "607.560", "36": "509.141", "48": "452.666"};
-        addP("Verde Pradera - 1° Etapa", "5.000", "24.990.000", "2.500.000", cuotasVP1A, "A1, A22"); 
-        const cuotasVP1B = {"12": "1.148.699", "24": "648.918", "36": "486.048", "48": "407.313", "60": "362.133"};
+        const cuotasVP1A = { "12": "1.018.211", "24": "607.560", "36": "509.141", "48": "452.666" };
+        addP("Verde Pradera - 1° Etapa", "5.000", "24.990.000", "2.500.000", cuotasVP1A, "A1, A22");
+        const cuotasVP1B = { "12": "1.148.699", "24": "648.918", "36": "486.048", "48": "407.313", "60": "362.133" };
         addP("Verde Pradera - 1° Etapa", "5.100", "21.990.000", "9.990.000", cuotasVP1B, "A5");
         addP("Verde Pradera - 1° Etapa", "7.600", "21.990.000", "9.990.000", cuotasVP1B, "A25");
-        const cuotasVP1C = {"12": "1.183.333", "24": "661.667", "36": "491.111", "48": "410.833", "60": "365.667"};
+        const cuotasVP1C = { "12": "1.183.333", "24": "661.667", "36": "491.111", "48": "410.833", "60": "365.667" };
         addP("Verde Pradera - 1° Etapa", "5.000", "16.990.000", "3.990.000", cuotasVP1C, "A6, A7, A10, A17, A18");
         addP("Verde Pradera - 1° Etapa", "5.100", "16.990.000", "3.990.000", cuotasVP1C, "A39");
-        addP("Verde Pradera - 1° Etapa", "5.100", "14.990.000", "3.990.000", {"12": "1.016.667", "24": "578.333", "36": "435.556", "48": "369.167", "60": "332.333"}, "A8");
-        const cuotasVP1D = {"12": "1.266.667", "24": "703.333", "36": "518.889", "48": "431.667", "60": "382.333"};
+        addP("Verde Pradera - 1° Etapa", "5.100", "14.990.000", "3.990.000", { "12": "1.016.667", "24": "578.333", "36": "435.556", "48": "369.167", "60": "332.333" }, "A8");
+        const cuotasVP1D = { "12": "1.266.667", "24": "703.333", "36": "518.889", "48": "431.667", "60": "382.333" };
         addP("Verde Pradera - 1° Etapa", "5.000", "17.990.000", "3.990.000", cuotasVP1D, "A9, A11, A12, A15, A32, A34");
         addP("Verde Pradera - 1° Etapa", "5.100", "17.990.000", "3.990.000", cuotasVP1D, "A36, A38");
-        addP("Verde Pradera - 1° Etapa", "5.000", "14.990.000", "5.000.000", {"12": "932.500", "24": "536.250", "36": "407.500", "48": "348.125", "60": "315.500"}, "A23");
-        const cuotasVP1E = {"12": "1.100.000", "24": "620.000", "36": "463.333", "48": "390.000", "60": "349.000"};
+        addP("Verde Pradera - 1° Etapa", "5.000", "14.990.000", "5.000.000", { "12": "932.500", "24": "536.250", "36": "407.500", "48": "348.125", "60": "315.500" }, "A23");
+        const cuotasVP1E = { "12": "1.100.000", "24": "620.000", "36": "463.333", "48": "390.000", "60": "349.000" };
         addP("Verde Pradera - 1° Etapa", "5.000", "15.990.000", "3.990.000", cuotasVP1E, "A26, A29, A31, A35");
-        const cuotasVP1F = {"12": "1.350.000", "24": "745.000", "36": "546.667", "48": "452.500", "60": "399.000"};
+        const cuotasVP1F = { "12": "1.350.000", "24": "745.000", "36": "546.667", "48": "452.500", "60": "399.000" };
         addP("Verde Pradera - 1° Etapa", "5.000", "18.990.000", "3.990.000", cuotasVP1F, "A27, A33");
         addP("Verde Pradera - 1° Etapa", "5.100", "18.990.000", "3.990.000", cuotasVP1F, "A37");
-        addP("Verde Pradera - 1° Etapa", "5.000", "15.990.000", "6.200.000", {"12": "915.833", "24": "527.917", "36": "401.944", "48": "343.958", "60": "312.167"}, "A30");
+        addP("Verde Pradera - 1° Etapa", "5.000", "15.990.000", "6.200.000", { "12": "915.833", "24": "527.917", "36": "401.944", "48": "343.958", "60": "312.167" }, "A30");
 
         // --- 9. VERDE PRADERA - 2° ETAPA ---
-        const cuotasVP2A = {"12": "2.010.223", "24": "1.135.607", "36": "850.584", "48": "712.797", "60": "633.732"};
+        const cuotasVP2A = { "12": "2.010.223", "24": "1.135.607", "36": "850.584", "48": "712.797", "60": "633.732" };
         addP("Verde Pradera - 2° Etapa", "5.000", "24.990.000", "3.990.000", cuotasVP2A, "B1, B4, B7, B8, B12, B14, B15");
         addP("Verde Pradera - 2° Etapa", "6.000", "24.990.000", "3.990.000", cuotasVP2A, "B53, B55");
-        addP("Verde Pradera - 2° Etapa", "5.000", "21.990.000", "3.990.000", {"12": "1.723.048", "24": "973.377", "36": "729.072", "48": "610.969", "60": "543.199"}, "B2");
-        addP("Verde Pradera - 2° Etapa", "5.000", "22.990.000", "3.990.000", {"12": "1.818.773", "24": "1.027.454", "36": "769.576", "48": "644.912", "60": "573.377"}, "B3");
-        const cuotasVP2B = {"12": "1.914.498", "24": "1.081.530", "36": "810.080", "48": "678.855", "60": "603.555"};
+        addP("Verde Pradera - 2° Etapa", "5.000", "21.990.000", "3.990.000", { "12": "1.723.048", "24": "973.377", "36": "729.072", "48": "610.969", "60": "543.199" }, "B2");
+        addP("Verde Pradera - 2° Etapa", "5.000", "22.990.000", "3.990.000", { "12": "1.818.773", "24": "1.027.454", "36": "769.576", "48": "644.912", "60": "573.377" }, "B3");
+        const cuotasVP2B = { "12": "1.914.498", "24": "1.081.530", "36": "810.080", "48": "678.855", "60": "603.555" };
         addP("Verde Pradera - 2° Etapa", "5.000", "23.990.000", "3.990.000", cuotasVP2B, "B5, B6, B16");
-        const cuotasVP2C = {"12": "1.531.598", "24": "865.224", "36": "648.064", "48": "543.084", "60": "482.844"};
+        const cuotasVP2C = { "12": "1.531.598", "24": "865.224", "36": "648.064", "48": "543.084", "60": "482.844" };
         addP("Verde Pradera - 2° Etapa", "5.000", "19.990.000", "3.990.000", cuotasVP2C, "B9, B10, B17, B20, B22, B29, B31, B34");
-        const cuotasVP2D = {"12": "1.627.323", "24": "919.301", "36": "688.568", "48": "577.027", "60": "513.021"};
+        const cuotasVP2D = { "12": "1.627.323", "24": "919.301", "36": "688.568", "48": "577.027", "60": "513.021" };
         addP("Verde Pradera - 2° Etapa", "5.000", "20.990.000", "3.990.000", cuotasVP2D, "B11, B19, B23, B27, B28, B39");
-        const cuotasVP2E = {"12": "1.435.873", "24": "811.148", "36": "607.560", "48": "509.141", "60": "452.666"};
+        const cuotasVP2E = { "12": "1.435.873", "24": "811.148", "36": "607.560", "48": "509.141", "60": "452.666" };
         addP("Verde Pradera - 2° Etapa", "5.000", "18.990.000", "3.990.000", cuotasVP2E, "B18, B21, B24, B25, B26, B32, B35, B36, B37, B38, B47");
-        const cuotasVP2F = {"12": "1.148.699", "24": "648.918", "36": "486.048", "48": "407.313", "60": "362.133"};
+        const cuotasVP2F = { "12": "1.148.699", "24": "648.918", "36": "486.048", "48": "407.313", "60": "362.133" };
         addP("Verde Pradera - 2° Etapa", "5.000", "15.990.000", "3.990.000", cuotasVP2F, "B30, B41, B46, B51, B52");
-        const cuotasVP2G = {"12": "1.244.424", "24": "702.995", "36": "526.552", "48": "441.256", "60": "392.311"};
+        const cuotasVP2G = { "12": "1.244.424", "24": "702.995", "36": "526.552", "48": "441.256", "60": "392.311" };
         addP("Verde Pradera - 2° Etapa", "5.000", "16.990.000", "3.990.000", cuotasVP2G, "B40, B43, B45, B49, B50");
-        const cuotasVP2H = {"12": "1.340.148", "24": "757.071", "36": "567.056", "48": "475.198", "60": "422.488"};
+        const cuotasVP2H = { "12": "1.340.148", "24": "757.071", "36": "567.056", "48": "475.198", "60": "422.488" };
         addP("Verde Pradera - 2° Etapa", "5.000", "17.990.000", "3.990.000", cuotasVP2H, "B42, B44, B48");
-        addP("Verde Pradera - 2° Etapa", "6.000", "26.990.000", "3.990.000", {"12": "2.201.672", "24": "1.243.760", "36": "931.592", "48": "780.683", "60": "694.088"}, "B54");
+        addP("Verde Pradera - 2° Etapa", "6.000", "26.990.000", "3.990.000", { "12": "2.201.672", "24": "1.243.760", "36": "931.592", "48": "780.683", "60": "694.088" }, "B54");
 
         // --- 10. SOL DEL PEDREGAL ---
-        addP("Sol del Pedregal", "5.000", "13.990.000", "4.990.000", {"12": "861.524", "24": "486.689", "36": "364.536", "48": "305.485"}, "12, 13, 26, 33");
+        addP("Sol del Pedregal", "5.000", "13.990.000", "4.990.000", { "12": "861.524", "24": "486.689", "36": "364.536", "48": "305.485" }, "12, 13, 26, 33");
 
         // --- 11. VALLE SAN ALFONSO ---
-        addP("Valle San Alfonso", "5.000", "15.990.000", "3.990.000", {"12": "1.148.699", "24": "648.918", "36": "486.048", "48": "407.313"}, "A, 18");
-        addP("Valle San Alfonso", "5.000", "16.990.000", "3.990.000", {"12": "1.244.424", "24": "702.995", "36": "526.552", "48": "441.256"}, "B");
-        const cuotasVSA_1 = {"12": "957.249", "24": "540.765", "36": "405.040", "48": "339.427"};
+        addP("Valle San Alfonso", "5.000", "15.990.000", "3.990.000", { "12": "1.148.699", "24": "648.918", "36": "486.048", "48": "407.313" }, "A, 18");
+        addP("Valle San Alfonso", "5.000", "16.990.000", "3.990.000", { "12": "1.244.424", "24": "702.995", "36": "526.552", "48": "441.256" }, "B");
+        const cuotasVSA_1 = { "12": "957.249", "24": "540.765", "36": "405.040", "48": "339.427" };
         addP("Valle San Alfonso", "5.000", "13.990.000", "3.990.000", cuotasVSA_1, "1, 2, 7, 9, 4A, 5B, 7B");
         addP("Valle San Alfonso", "5.500", "13.990.000", "3.990.000", cuotasVSA_1, "21, 22");
         addP("Valle San Alfonso", "5.640", "13.990.000", "3.990.000", cuotasVSA_1, "14");
-        addP("Valle San Alfonso", "5.000", "12.990.000", "6.495.000", {"12": "624.583", "24": "444.167"}, "3");
-        const cuotasVSA_2 = {"12": "541.250", "24": "388.611"};
+        addP("Valle San Alfonso", "5.000", "12.990.000", "6.495.000", { "12": "624.583", "24": "444.167" }, "3");
+        const cuotasVSA_2 = { "12": "541.250", "24": "388.611" };
         addP("Valle San Alfonso", "5.000", "10.990.000", "5.495.000", cuotasVSA_2, "4, 11, 12");
         addP("Valle San Alfonso", "5.100", "10.990.000", "5.495.000", cuotasVSA_2, "15, 20");
-        const cuotasVSA_3 = {"12": "1.052.974", "24": "746.688", "36": "594.842", "48": "445.544"};
+        const cuotasVSA_3 = { "12": "1.052.974", "24": "746.688", "36": "594.842", "48": "445.544" };
         addP("Valle San Alfonso", "5.000", "14.990.000", "3.990.000", cuotasVSA_3, "5, 6");
         addP("Valle San Alfonso", "5.350", "14.990.000", "3.990.000", cuotasVSA_3, "16");
-        addP("Valle San Alfonso", "5.000", "9.990.000", "4.995.000", {"12": "499.583", "24": "360.833"}, "8");
-        addP("Valle San Alfonso", "5.600", "9.990.000", "4.995.000", {"12": "499.583", "24": "360.833"}, "17");
-        addP("Valle San Alfonso", "5.000", "12.990.000", "3.990.000", {"12": "861.524", "24": "486.689", "36": "364.536", "48": "305.485"}, "10, 5A, 7A");
-        addP("Valle San Alfonso", "5.100", "11.990.000", "5.995.000", {"12": "582.917", "24": "416.389"}, "13, 19");
-        addP("Valle San Alfonso", "5.000", "13.490.000", "3.990.000", {"12": "909.386", "24": "513.727", "36": "384.788", "48": "322.456"}, "4B");
+        addP("Valle San Alfonso", "5.000", "9.990.000", "4.995.000", { "12": "499.583", "24": "360.833" }, "8");
+        addP("Valle San Alfonso", "5.600", "9.990.000", "4.995.000", { "12": "499.583", "24": "360.833" }, "17");
+        addP("Valle San Alfonso", "5.000", "12.990.000", "3.990.000", { "12": "861.524", "24": "486.689", "36": "364.536", "48": "305.485" }, "10, 5A, 7A");
+        addP("Valle San Alfonso", "5.100", "11.990.000", "5.995.000", { "12": "582.917", "24": "416.389" }, "13, 19");
+        addP("Valle San Alfonso", "5.000", "13.490.000", "3.990.000", { "12": "909.386", "24": "513.727", "36": "384.788", "48": "322.456" }, "4B");
 
         // --- 12. VIVE RIVIERA ---
-        const cuotasRiviera1 = {"12": "1.244.424", "24": "702.995", "36": "526.552", "48": "441.256"};
+        const cuotasRiviera1 = { "12": "1.244.424", "24": "702.995", "36": "526.552", "48": "441.256" };
         addP("Vive Riviera", "6.950", "17.990.000", "4.990.000", cuotasRiviera1, "A3");
         addP("Vive Riviera", "6.008", "17.990.000", "4.990.000", cuotasRiviera1, "A4");
         addP("Vive Riviera", "5.500", "17.990.000", "4.990.000", cuotasRiviera1, "A18");
         addP("Vive Riviera", "6.666", "17.990.000", "4.990.000", cuotasRiviera1, "A23");
-        addP("Vive Riviera", "5.685", "17.990.000", "9.990.000", {"12": "765.799", "24": "432.612", "36": "324.032", "48": "271.542"}, "A5");
+        addP("Vive Riviera", "5.685", "17.990.000", "9.990.000", { "12": "765.799", "24": "432.612", "36": "324.032", "48": "271.542" }, "A5");
 
         // Inicializar Selector de Proyectos (Orden Alfabético opcional, o como fueron cargados)
         window.onload = () => {
@@ -394,32 +537,32 @@
             const numParcela = document.getElementById('parcela').value.trim().toUpperCase();
             const errorMsg = document.getElementById('error-msg');
             const resultado = document.getElementById('resultado');
-            
+
             errorMsg.innerText = '';
             resultado.value = '';
 
-            if(!proyectoSeleccionado || !numParcela) {
+            if (!proyectoSeleccionado || !numParcela) {
                 errorMsg.innerText = 'Por favor, ingresa un número/ID de parcela.';
                 return;
             }
 
             const dataProyecto = db[proyectoSeleccionado];
-            
-            if(!dataProyecto) {
+
+            if (!dataProyecto) {
                 errorMsg.innerText = 'Proyecto no encontrado en la base de datos.';
                 return;
             }
 
             // Búsqueda insensible a mayúsculas/minúsculas para mejorar UX
             const parcelaKey = Object.keys(dataProyecto).find(k => k.toUpperCase() === numParcela);
-            
-            if(!parcelaKey) {
+
+            if (!parcelaKey) {
                 errorMsg.innerText = `La parcela "${numParcela}" no existe o ya fue vendida en el proyecto ${proyectoSeleccionado}.`;
                 return;
             }
 
             const p = dataProyecto[parcelaKey];
-            
+
             // Generar las líneas de cuotas dinámicamente según lo disponible
             let cuotasTexto = "";
             for (const [cantidad, monto] of Object.entries(p.cuotas)) {
@@ -428,34 +571,34 @@
 
             // Formato exacto requerido con formato WhatsApp (*)
             const texto = `*${proyectoSeleccionado}* – Parcela ${parcelaKey}\n` +
-                          `📐 ${p.m2} m²\n` +
-                          `💰 Valor: $${p.precio}\n\n` +
-                          `Pie: $${p.pie}\n\n` +
-                          `Saldo financiado:\n` +
-                          cuotasTexto.trim();
+                `📐 ${p.m2} m²\n` +
+                `💰 Valor: $${p.precio}\n\n` +
+                `Pie: $${p.pie}\n\n` +
+                `Saldo financiado:\n` +
+                cuotasTexto.trim();
 
             resultado.value = texto;
         }
 
         function copiarTexto() {
             const textarea = document.getElementById('resultado');
-            if(!textarea.value) return;
-            
+            if (!textarea.value) return;
+
             textarea.select();
             document.execCommand('copy');
-            
+
             // Efecto visual UX
             const btn = document.getElementById('btn-copy');
             const textoOriginal = btn.innerText;
             btn.innerText = '¡Copiado con éxito!';
             btn.classList.add('success-state');
-            
+
             setTimeout(() => {
                 btn.innerText = textoOriginal;
                 btn.classList.remove('success-state');
             }, 2500);
         }
-        
+
         // Listener para Enter
         document.getElementById('parcela').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
@@ -464,4 +607,5 @@
         });
     </script>
 </body>
+
 </html>
